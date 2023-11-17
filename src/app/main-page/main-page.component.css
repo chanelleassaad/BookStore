@@ -1,0 +1,21 @@
+.description {
+  padding: 20px;
+  margin: auto;
+  margin-top: 3% !important;
+  width:70%;
+  border-color: #97704f !important;
+}
+.description p {
+  margin-bottom: 0;
+  font-family: cursive;
+}
+
+.button-style {
+  background-color: #97704f;
+  width: 100%;
+}
+.button-style div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+}
