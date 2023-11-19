@@ -10,6 +10,18 @@
   font-family: cursive;
 }
 
+.button-box {
+  padding: 20px;
+  margin: auto;
+  margin-top: 1% !important;
+  width:70%;
+  border-color: #97704f !important;
+}
+.button-box p {
+  margin-bottom: 0;
+  font-family: cursive;
+}
+
 .button-style {
   background-color: #97704f;
   width: 100%;

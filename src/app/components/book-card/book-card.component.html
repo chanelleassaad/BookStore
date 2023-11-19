@@ -1,15 +1,15 @@
 <div class="row row-cols-2 row-cols-md-5 g-4">
   <div *ngFor="let book of books">
     <div class="col" style="margin-bottom: 5%">
-      <div class="card h-100">
-        <img [src]="book.src" class="card-img-top" alt="..." width="244" height="auto">
-        <div class="card-body">
-          <h5 class="card-title">${{book.price}}</h5>
-          <h6>{{book.bookName}}</h6>
+      <div class="card" >
+        <img [src]="book.src" class="card-img-top" style="padding: 3%;" alt="...">
+        <div class="card-body" style="padding: 10px">
+          <h5 class="card-title" style="margin-bottom: 0">${{book.price}}</h5>
+          <h6 style="margin-bottom: 0">{{book.bookName}}</h6>
           <h6 style="color: grey">by {{book.author}}</h6>
           <div class="d-grid gap-2">
-            <button style="background-color: white; color: #97704f;" class="btn active">Details</button>
-            <button style="background-color: #97704f; color: white" class="btn">Add to Cart</button>
+            <button style="background-color: white; color: #97704f; padding: 5px" class="btn active">Details</button>
+            <button style="background-color: #97704f; color: white; padding: 5px" class="btn">Add to Cart</button>
           </div>
         </div>
       </div>

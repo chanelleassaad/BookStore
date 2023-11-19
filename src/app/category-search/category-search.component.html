@@ -1,11 +1,11 @@
 <div style="width: 90%; margin: auto">
-  <div class="d-flex" style="margin-bottom: 2%; margin-top: 5%">
+  <div class="d-flex" style="margin-bottom: 2%; margin-top: 1%">
     <input class="form-control me-2" type="search" placeholder="Search in all categories" aria-label="Search">
     <button class="btn" style="color: white"><i class="bi bi-search" style="color: black ;font-size: x-large"></i></button>
   </div>
 
   <div *ngFor="let cat of categories">
-    <div class="card" style="margin-bottom: 1px;">
+    <div class="card" style="margin-bottom: 5px;">
       <button type="button" class="btn d-flex" style="justify-content: space-between">
         {{cat}}
         <i class="bi-arrow-right"></i>
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div style="margin-top: 50px">
+  <div style="margin-top: 40px">
   <app-book-card></app-book-card>
   </div>
 </div>
