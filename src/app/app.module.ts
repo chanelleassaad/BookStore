@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { BookCardComponent } from './book-card/book-card.component';
+import { BookCardComponent } from './components/book-card/book-card.component';
+import { UserLoginComponent } from './components/user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { BookCardComponent } from './book-card/book-card.component';
     MainPageComponent,
     CategorySearchComponent,
     BookCardComponent,
+    UserLoginComponent,
   ],
   imports: [
     AppRoutingModule,
