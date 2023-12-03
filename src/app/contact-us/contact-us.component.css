@@ -1,0 +1,24 @@
+.container {
+  background-color: #fff; /* White container background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #8b4513; /* SaddleBrown text color */
+}
+
+label {
+  color: #8b4513; /* SaddleBrown text color */
+}
+
+.btn-primary {
+  background-color: #8b4513; /* SaddleBrown button background color */
+  border-color: #8b4513; /* SaddleBrown button border color */
+}
+
+.btn-primary:hover {
+  background-color: #63402e; /* Darker brown on hover */
+  border-color: #63402e;
+}

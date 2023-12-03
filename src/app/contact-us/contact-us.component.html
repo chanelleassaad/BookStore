@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <h1 style="margin-bottom: 20px">Contact Us</h1>
+  <!-- Your form here -->
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="fullName" formControlName="fullName" placeholder="John Doe">
+      <div *ngIf="contactForm.get('fullName')?.touched && contactForm.get('fullName')?.hasError('required')" class="text-danger">
+        Full Name is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="john@example.com">
+      <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('required')" class="text-danger">
+        Email is required
+      </div>
+      <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('email')" class="text-danger">
+        Invalid email format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="message" class="form-label">Your Message</label>
+      <textarea class="form-control" id="message" formControlName="message" rows="4"></textarea>
+      <div *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.hasError('required')" class="text-danger">
+        Message is required
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <div *ngFor="let alert of alerts" style="margin-top: 20px">
+    <alert [type]="alert.type" [dismissible]="true" (onClosed)="onClosed(alert)">
+      {{ alert.msg }}
+    </alert>
+
+  </div>
+
+</div>
