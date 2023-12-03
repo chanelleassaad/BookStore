@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'the-miracles-bookshop',
     children: [
       { path: '', component: MainPageComponent },
-      { path: 'search', component: CategorySearchComponent }
+      { path: 'search', component: CategorySearchComponent },
+      // { path: 'review', component:  }
     ]
   },
 ];
