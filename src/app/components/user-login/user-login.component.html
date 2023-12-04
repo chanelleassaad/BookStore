@@ -1,8 +1,7 @@
-<div class="modal-body">
-
+<div class="modal-body brown-theme">
   <nav class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
     <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="tab-login" data-bs-toggle="tab" data-bs-target="#pills-login" role="tab"
+      <a class="nav-link active" id="tab-login" data-bs-toggle="pill" data-bs-target="#pills-login" role="tab"
          aria-controls="nav-login" aria-selected="true">Login</a>
     </li>
     <li class="nav-item" role="presentation">
@@ -12,46 +11,65 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </nav>
 
-
   <div class="tab-content">
     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-          <label for="floatingInput">Email or username</label>
+          <input type="email" class="form-control" formControlName="email" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput" style="color: #5d4037;">Email or username</label>
+          <div *ngIf="loginFormControls['email'].hasError('required') && loginFormControls['email'].touched" class="text-danger">
+            Email is required.
+          </div>
+          <div *ngIf="loginFormControls['email'].hasError('email') && loginFormControls['email'].touched" class="text-danger">
+            Invalid email format.
+          </div>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-          <label for="floatingPassword">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword" style="color: #5d4037;">Password</label>
+          <div *ngIf="loginFormControls['password'].hasError('required') && loginFormControls['password'].touched" class="text-danger">
+            Password is required.
+          </div>
         </div>
-
-        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-
+        <button type="submit" class="btn btn-brown btn-block mb-4" style="color: white">Sign in</button>
       </form>
     </div>
     <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-      <form>
+      <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="registerName" placeholder="">
-          <label for="registerName">Name</label>
+          <input type="text" class="form-control" formControlName="name" id="registerName" placeholder="">
+          <label for="registerName" style="color: #5d4037;">Name</label>
+          <div *ngIf="registerFormControls['name'].hasError('required') && registerFormControls['name'].touched" class="text-danger">
+            Name is required.
+          </div>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="registerUsername" placeholder="">
-          <label for="registerUsername">Username</label>
+          <input type="text" class="form-control" formControlName="username" id="registerUsername" placeholder="">
+          <label for="registerUsername" style="color: #5d4037;">Username</label>
+          <div *ngIf="registerFormControls['username'].hasError('required') && registerFormControls['username'].touched" class="text-danger">
+            Username is required.
+          </div>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="registerEmail" placeholder=""/>
-          <label for="registerEmail">Email</label>
+          <input type="email" class="form-control" formControlName="email" id="registerEmail" placeholder="">
+          <label for="registerEmail" style="color: #5d4037;">Email</label>
+          <div *ngIf="registerFormControls['email'].hasError('required') && registerFormControls['email'].touched" class="text-danger">
+            Email is required.
+          </div>
+          <div *ngIf="registerFormControls['email'].hasError('email') && registerFormControls['email'].touched" class="text-danger">
+            Invalid email format.
+          </div>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="registerPassword" placeholder="" />
-          <label for="registerPassword">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="registerPassword" placeholder="">
+          <label for="registerPassword" style="color: #5d4037;">Password</label>
+          <div *ngIf="registerFormControls['password'].hasError('required') && registerFormControls['password'].touched" class="text-danger">
+            Password is required.
+          </div>
         </div>
 
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
+        <button type="submit" class="btn btn-brown btn-block mb-3" style="color: white">Sign up</button>
       </form>
     </div>
   </div>
-
 </div>
