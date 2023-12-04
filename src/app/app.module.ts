@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import { CategorySearchComponent } from './category-search/category-search.component';
+import { SearchBookComponent } from './search-book/search-book.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
@@ -17,15 +17,17 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
+import { SearchByCategoryComponent } from './search-by-category/search-by-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    CategorySearchComponent,
+    SearchBookComponent,
     BookCardComponent,
     UserLoginComponent,
     ContactUsComponent,
+    SearchByCategoryComponent,
   ],
     imports: [
         AppRoutingModule,

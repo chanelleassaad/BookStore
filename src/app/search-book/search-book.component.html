@@ -6,7 +6,7 @@
 
   <div *ngFor="let cat of categories">
     <div class="card" style="margin-bottom: 5px;">
-      <button type="button" class="btn d-flex" style="justify-content: space-between">
+      <button type="button" class="btn d-flex" style="justify-content: space-between" (click)="searchByCategory(cat)">
         {{cat}}
         <i class="bi-arrow-right"></i>
       </button>
