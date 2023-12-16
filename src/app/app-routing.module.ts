@@ -4,6 +4,7 @@ import {MainPageComponent} from "./main-page/main-page.component";
 import {SearchBookComponent} from "./search-book/search-book.component";
 import {ContactUsComponent} from "./contact-us/contact-us.component";
 import {SearchByCategoryComponent} from "./search-by-category/search-by-category.component";
+import {FeedbackComponent} from "./feedback/feedback.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/the-miracles-bookshop', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
       { path: '', component: MainPageComponent },
       { path: 'search', component: SearchBookComponent },
       { path: 'search/:category', component: SearchByCategoryComponent },
-      { path: 'contact-us', component: ContactUsComponent  }
+      { path: 'contact-us', component: ContactUsComponent  },
+      { path: 'feedback', component: FeedbackComponent  }
     ]
   },
 ];

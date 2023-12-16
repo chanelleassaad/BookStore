@@ -19,6 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import { SearchByCategoryComponent } from './search-by-category/search-by-category.component';
 import { CartContentComponent } from './components/cart-content/cart-content.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CartContentComponent } from './components/cart-content/cart-content.com
     ContactUsComponent,
     SearchByCategoryComponent,
     CartContentComponent,
+    FeedbackComponent,
   ],
     imports: [
         AppRoutingModule,
