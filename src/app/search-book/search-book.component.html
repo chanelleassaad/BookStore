@@ -1,5 +1,5 @@
 <div style="width: 90%; margin: auto">
-  <div class="d-flex" style="margin-bottom: 2%; margin-top: 1%">
+  <div class="d-flex" style="margin-bottom: 2%; margin-top: 20px">
     <input class="form-control me-2" type="search" placeholder="Search in all categories" aria-label="Search">
     <button class="btn" style="color: white"><i class="bi bi-search" style="color: black ;font-size: x-large"></i></button>
   </div>
@@ -14,7 +14,7 @@
   </div>
 
   <div style="margin-top: 40px">
-  <app-book-card></app-book-card>
+  <app-book-card [typeShow]="'search'"></app-book-card>
   </div>
 </div>
 

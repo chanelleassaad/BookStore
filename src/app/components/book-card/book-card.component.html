@@ -1,5 +1,5 @@
 <div class="row row-cols-2 row-cols-md-5 g-4">
-  <div *ngFor="let book of books">
+  <div *ngFor="let book of booksToDisplay">
     <div class="col" style="margin-bottom: 5%">
       <div class="card">
         <img [src]="book.src" class="card-img-top" style="padding: 3%;" alt="...">
@@ -9,10 +9,10 @@
           <h6 style="color: grey">by {{ book.author }}</h6>
           <div class="d-grid gap-2">
             <button style="background-color: white; color: #97704f; padding: 5px" class="btn active btn-primary"
-                    (click)="openDetailsModal(book)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    (click)="openDetailsModal(book)" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal">
               Details
             </button>
-            <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart()">Add to Cart</button>
+            <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(book)">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -20,48 +20,46 @@
   </div>
 </div>
 
-<div *ngIf="selectedBook">
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDetailsModal()"></button>
-        </div>
-        <div class="modal-body">
-          <div class="col" style="margin-bottom: 5%">
-            <div class="card">
-              <div class="image-container">
-                <img [src]="selectedBook.src" class="card-img-top" style="padding: 3%;" alt="...">
+<div class="modal fade" id="detailsModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDetailsModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col" style="margin-bottom: 5%">
+          <div class="card">
+            <div class="image-container">
+              <img [src]="selectedBook?.src" class="card-img-top" style="padding: 3%;" alt="...">
+            </div>
+            <div class="card-body" style="padding: 10px">
+              <h5 class="card-title" style="margin-bottom: 0;">${{ selectedBook?.price }}</h5>
+              <h6 style="margin-bottom: 0">{{ selectedBook?.bookName }}</h6>
+              <h6 style="color: grey">by {{ selectedBook?.author }}</h6>
+              <div class="d-grid gap-2">
+                <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(selectedBook?.bookid)">Add to Cart</button>
               </div>
-              <div class="card-body" style="padding: 10px">
-                <h5 class="card-title" style="margin-bottom: 0;">${{ selectedBook.price }}</h5>
-                <h6 style="margin-bottom: 0">{{ selectedBook.bookName }}</h6>
-                <h6 style="color: grey">by {{ selectedBook.author }}</h6>
-                <div class="d-grid gap-2">
-                  <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart()">Add to Cart</button>
-                </div>
 
-                <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-                  <p style="color: #333; margin-bottom: 5px; font-size: medium">Genre(s): {{ selectedBook.categories.join(', ') }}</p>
-                  <p style="color: #333; margin-top: 10px; margin-bottom: 5px;">Published by {{ selectedBook.publishedBy }} in year {{ selectedBook.publishYear }}</p>
-                  <p style="color: #333; font-size: medium; margin-top: 10px; margin-bottom: 2px;">Description:</p>
-                  <p>{{ selectedBook.description }}</p>
-                </div>
+              <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+                <p style="color: #333; margin-bottom: 5px; font-size: medium">Genre(s): {{ selectedBook?.categories.join(', ') }}</p>
+                <p style="color: #333; margin-top: 10px; margin-bottom: 5px;">Published by {{ selectedBook?.publishedBy }} in year {{ selectedBook?.publishYear }}</p>
+                <p style="color: #333; font-size: medium; margin-top: 10px; margin-bottom: 2px;">Description:</p>
+                <p>{{ selectedBook?.description }}</p>
+              </div>
 
-                <!-- Reviews and Ratings Section -->
-                <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-                  <h3 style="color: #333; font-size: 1.2em; margin-bottom: 10px;">Reviews and Ratings</h3>
-                    <div *ngIf="selectedBook.reviews && selectedBook.reviews.length > 0">
-                    <div *ngFor="let review of selectedBook.reviews" style="margin-bottom: 10px;">
-                      <p style="margin-bottom: 5px;">{{ review.comment }} - Rating: {{ review.rating }}/5</p>
-                    </div>
-                  </div>
-                  <div *ngIf="!(selectedBook.reviews && selectedBook.reviews.length > 0)">
-                    <p>No reviews available.</p>
+              <!-- Reviews and Ratings Section -->
+              <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+                <h3 style="color: #333; font-size: 1.2em; margin-bottom: 10px;">Reviews and Ratings</h3>
+                  <div *ngIf="selectedBook?.reviews && selectedBook?.reviews.length > 0">
+                  <div *ngFor="let review of selectedBook?.reviews" style="margin-bottom: 10px;">
+                    <p style="margin-bottom: 5px;">{{ review?.comment }} - Rating: {{ review?.rating }}/5</p>
                   </div>
                 </div>
-
+                <div *ngIf="!(selectedBook?.reviews && selectedBook?.reviews.length > 0)">
+                  <p>No reviews available.</p>
+                </div>
               </div>
+
             </div>
           </div>
         </div>

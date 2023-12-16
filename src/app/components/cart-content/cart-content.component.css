@@ -1,0 +1,11 @@
+.cart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}
+
+.cart-empty p {
+  font-size: 1.2em;
+  color: #4d4d4d;
+}

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #97704f !important;">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="background-color: #97704f !important;">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/" style="font-family: cursive; color: azure">
       <img src="/assets/images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block">
@@ -29,7 +29,7 @@
       <div class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item" style="margin-right: 20px" routerLinkActive="true">
-            <button type="button" class="btn btn-outline position-relative" routerLink="/">
+            <button type="button" class="btn btn-outline position-relative" (click)="toggleCart()">
               <i class="bi-bag icon-white"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-light">99+</span>
             </button>
@@ -45,12 +45,30 @@
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<body style="padding-top: 76px;">
+  <div class="container-fluid">
+    <!-- Router Outlet -->
+    <router-outlet></router-outlet>
+  </div>
 
-<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <app-user-login></app-user-login>
+  <!-- Login Modal -->
+  <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <app-user-login></app-user-login>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- Shopping Cart -->
+  <div id="shopping-cart" #shoppingCart class="position-fixed top-0 end-0">
+    <div style="display: flex; align-items: flex-end; padding: 10px">
+      <i class="bi-bag icon-white cart-title"> My Cart</i>
+      <button type="button" class="close-button" (click)="closeCart()">
+        <i class="bi-x" style="color: black; font-size: 24px;"></i>
+      </button>
+    </div>
+
+    <app-cart-content></app-cart-content>
+  </div>
+</body>

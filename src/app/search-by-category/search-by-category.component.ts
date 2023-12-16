@@ -8,12 +8,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SearchByCategoryComponent {
 
-  category: string | null;
+  category: string | undefined;
 
   constructor(private route: ActivatedRoute) {
-    this.category = this.route.snapshot.paramMap.get('category');
-    console.log(this.category);
-    // Fetch data based on the category and display it
+    this.category = this.route.snapshot.paramMap.get('category')?.toUpperCase();
   }
 
 }

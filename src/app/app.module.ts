@@ -18,6 +18,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import { SearchByCategoryComponent } from './search-by-category/search-by-category.component';
+import { CartContentComponent } from './components/cart-content/cart-content.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SearchByCategoryComponent } from './search-by-category/search-by-catego
     UserLoginComponent,
     ContactUsComponent,
     SearchByCategoryComponent,
+    CartContentComponent,
   ],
     imports: [
         AppRoutingModule,
