@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-book-card',
   templateUrl: './book-card.component.html',
@@ -22,6 +22,7 @@ export class BookCardComponent implements OnInit{
 
   booksToDisplay: any = null
   selectedBook: any = null;
+  addedBook: any = '';
 
   constructor(private route: ActivatedRoute) {
   }
@@ -52,5 +53,8 @@ export class BookCardComponent implements OnInit{
     this.selectedBook = null;
   }
   addToCart(book: any) {
+    this.addedBook = book.bookName;
+    const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+    toast.show();
   }
 }

@@ -20,6 +20,17 @@
   </div>
 </div>
 
+<!--Add to Cart popup-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong>"{{this.addedBook}}" Added Successfully to Cart</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<!--Details Modal-->
 <div class="modal fade" id="detailsModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -37,7 +48,7 @@
               <h6 style="margin-bottom: 0">{{ selectedBook?.bookName }}</h6>
               <h6 style="color: grey">by {{ selectedBook?.author }}</h6>
               <div class="d-grid gap-2">
-                <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(selectedBook?.bookid)">Add to Cart</button>
+                <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(selectedBook)">Add to Cart</button>
               </div>
 
               <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
