@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {BookSearchService} from "../../services/book-search.service";
+import {BookSearchModel} from "../../models/book-search.model";
+import {BookDetailsModel} from "../../models/book-details.model";
 declare var bootstrap: any;
 @Component({
   selector: 'app-book-card',
@@ -10,26 +13,16 @@ export class BookCardComponent implements OnInit{
 
   @Input() typeShow: string = '';
 
-  books: Array<{ bookId: number, src: String, bookName: String, author: String, price: number, publishedBy: string, publishYear: string, description: string, categories: Array<string> }> = [
-    {bookId:1 , src: '/assets/images/book-cover.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:2 ,src: '/assets/images/book-cover.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:3 ,src: '/assets/images/book-cover2.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:4 ,src: '/assets/images/book-cover2.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:5 ,src: '/assets/images/book-cover.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:6 ,src: '/assets/images/book-cover2.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-    {bookId:7 ,src: '/assets/images/book-cover.jpg', author: 'Colleen Hoover', bookName: 'It Ends With Us', price: 23, publishedBy: 'X Y', publishYear: '2019', description: 'hx wwucb jwcgv wecjwuegbcv wejchb wcjwbec w cjuowec w ejcjwe', categories: ["romance","horror"]},
-  ];
-
-  booksToDisplay: any = null
-  selectedBook: any = null;
+  booksToDisplay: Array<BookSearchModel> = [];
+  selectedBook: BookDetailsModel | null = null;
   addedBook: any = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private bookSearchService: BookSearchService) {
   }
   ngOnInit() {
     switch (this.typeShow) {
       case 'search':
-        this.booksToDisplay = this.books;
+        this.loadSearchAll()
         break;
       case 'category':
         this.viewCategory()
@@ -37,17 +30,26 @@ export class BookCardComponent implements OnInit{
     }
   }
 
+  loadSearchAll() {
+    this.bookSearchService.getAllBooks().subscribe( books => {
+      this.booksToDisplay = books;
+    })
+  }
+
   viewCategory() {
     this.route.paramMap.subscribe(params => {
       const category = params.get('category');
       if (category != null) {
-        this.booksToDisplay = this.books.filter(book => book.categories.includes(category));
+        // this.booksToDisplay = this.books.filter(book => book.categories.includes(category));
       }
     });
   }
 
-  openDetailsModal(book: any) {
-    this.selectedBook = book;
+  openDetailsModal(bookId: number) {
+    this.bookSearchService.getBookDetails(bookId).subscribe( book => {
+      console.log(this.selectedBook);
+      this.selectedBook = book;
+    })
   }
   closeDetailsModal() {
     this.selectedBook = null;

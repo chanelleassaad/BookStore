@@ -20,6 +20,7 @@ import {MatInputModule} from "@angular/material/input";
 import { SearchByCategoryComponent } from './search-by-category/search-by-category.component';
 import { CartContentComponent } from './components/cart-content/cart-content.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
         AppRoutingModule,
         CommonModule,
         BrowserModule,
+        HttpClientModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),

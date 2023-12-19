@@ -1,11 +1,1 @@
-.image-container {
-  max-width: 100%; /* Ensure the image doesn't exceed its parent container */
-  height: auto;    /* Maintain the aspect ratio when resizing */
-  text-align: center;
-}
 
-/* Optionally, add a specific width to limit the maximum width of the image */
-.image-container img {
-  width: 50%;      /* Set the width to 100% of the container */
-  height: auto;     /* Maintain the aspect ratio when resizing */
-}

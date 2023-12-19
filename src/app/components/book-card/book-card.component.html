@@ -1,24 +1,23 @@
 <div class="row row-cols-2 row-cols-md-5 g-4">
-  <div *ngFor="let book of booksToDisplay">
-    <div class="col" style="margin-bottom: 5%">
-      <div class="card">
-        <img [src]="book.src" class="card-img-top" style="padding: 3%;" alt="...">
-        <div class="card-body" style="padding: 10px">
-          <h5 class="card-title" style="margin-bottom: 0">${{ book.price }}</h5>
-          <h6 style="margin-bottom: 0">{{ book.bookName }}</h6>
-          <h6 style="color: grey">by {{ book.author }}</h6>
-          <div class="d-grid gap-2">
-            <button style="background-color: white; color: #97704f; padding: 5px" class="btn active btn-primary"
-                    (click)="openDetailsModal(book)" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal">
-              Details
-            </button>
-            <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(book)">Add to Cart</button>
-          </div>
+  <div class="col-md-2" *ngFor="let book of booksToDisplay">
+    <div class="card" style="height: 90%;">
+      <img [src]="'/assets/images/' + book.bookCover" class="card-img-top" style="object-fit: contain; height: 200px; width: 100%; margin-bottom: 10px" alt="...">
+      <div class="card-body" style="height: 200px; overflow: hidden; padding: 10px;">
+        <h5 class="card-title" style="margin-bottom: 0">${{ book.price }}</h5>
+        <h6 style="margin-bottom: 0">{{ book.bookTitle }}</h6>
+        <h6 style="color: grey">by {{ book.authorName }}</h6>
+        <div class="d-grid gap-2" style="margin-top: 15px">
+          <button style="background-color: white; color: #97704f; padding: 5px" class="btn active btn-primary"
+                  (click)="openDetailsModal(book.bookCopyId)" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal">
+            Details
+          </button>
+          <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(book)">Add to Cart</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <!--Add to Cart popup-->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -41,32 +40,32 @@
         <div class="col" style="margin-bottom: 5%">
           <div class="card">
             <div class="image-container">
-              <img [src]="selectedBook?.src" class="card-img-top" style="padding: 3%;" alt="...">
+              <img [src]="'/assets/images/' + selectedBook?.bookCover" class="card-img-top" style="padding: 3%;" alt="...">
             </div>
             <div class="card-body" style="padding: 10px">
               <h5 class="card-title" style="margin-bottom: 0;">${{ selectedBook?.price }}</h5>
-              <h6 style="margin-bottom: 0">{{ selectedBook?.bookName }}</h6>
-              <h6 style="color: grey">by {{ selectedBook?.author }}</h6>
+              <h6 style="margin-bottom: 0">{{ selectedBook?.bookTitle }}</h6>
+              <h6 style="color: grey">by {{ selectedBook?.authors?.join(' & ') }}</h6>
               <div class="d-grid gap-2">
                 <button style="background-color: #97704f; color: white; padding: 5px" class="btn" (click)="addToCart(selectedBook)">Add to Cart</button>
               </div>
 
               <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-                <p style="color: #333; margin-bottom: 5px; font-size: medium">Genre(s): {{ selectedBook?.categories.join(', ') }}</p>
-                <p style="color: #333; margin-top: 10px; margin-bottom: 5px;">Published by {{ selectedBook?.publishedBy }} in year {{ selectedBook?.publishYear }}</p>
+                <p style="color: #333; margin-bottom: 5px; font-size: medium">Genre(s): {{ selectedBook?.categories?.join(', ') }}</p>
+                <p style="color: #333; margin-top: 10px; margin-bottom: 5px;">Published by {{ selectedBook?.publisherName }} in year {{ selectedBook?.publicationYear }}</p>
                 <p style="color: #333; font-size: medium; margin-top: 10px; margin-bottom: 2px;">Description:</p>
-                <p>{{ selectedBook?.description }}</p>
+                <p>{{ selectedBook?.bookDescription }}</p>
               </div>
 
-              <!-- Reviews and Ratings Section -->
+<!--               Reviews and Ratings Section-->
               <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
                 <h3 style="color: #333; font-size: 1.2em; margin-bottom: 10px;">Reviews and Ratings</h3>
-                  <div *ngIf="selectedBook?.reviews && selectedBook?.reviews.length > 0">
+                  <div *ngIf="selectedBook?.reviews">
                   <div *ngFor="let review of selectedBook?.reviews" style="margin-bottom: 10px;">
-                    <p style="margin-bottom: 5px;">{{ review?.comment }} - Rating: {{ review?.rating }}/5</p>
+                    <p style="margin-bottom: 5px;">{{ review?.reviewMessage }} - Rating: {{ review?.rating }}/5</p>
                   </div>
                 </div>
-                <div *ngIf="!(selectedBook?.reviews && selectedBook?.reviews.length > 0)">
+                <div *ngIf="!(selectedBook?.reviews)">
                   <p>No reviews available.</p>
                 </div>
               </div>
