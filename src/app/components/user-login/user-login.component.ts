@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -9,23 +10,24 @@ export class UserLoginComponent {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
+  loggedIn: boolean = false;
+  user: string = '';
 
-  constructor(private fb: FormBuilder) {
-    // Initialize form groups and controls
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', Validators.required]
     });
 
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
-  // Accessors for form controls
   get loginFormControls() {
     return this.loginForm.controls;
   }
@@ -35,13 +37,32 @@ export class UserLoginComponent {
   }
 
   submitLoginForm() {
-    // Implement login form submission logic here
-    console.log('Login form submitted:', this.loginForm.value);
+    this.authService.login(this.loginForm.value['username'], this.loginForm.value['password']).subscribe( user => {
+      this.userLogged();
+    })
   }
 
   submitRegisterForm() {
-    // Implement register form submission logic here
-    console.log('Register form submitted:', this.registerForm.value);
+    const body = {
+      firstName: this.registerForm.value['firstName'],
+      lastName: this.registerForm.value['lastName'],
+      username: this.registerForm.value['username'],
+      password: this.registerForm.value['password'],
+      email: this.registerForm.value['email'],
+    }
+    this.authService.signup(body).subscribe( user => {
+      this.userLogged();
+    })
   }
 
+  userLogged() {
+    this.loggedIn = this.authService.isUserLoggedIn();
+    this.user = this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.firstName;
+    console.log(this.user);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.loggedIn = false;
+  }
 }
