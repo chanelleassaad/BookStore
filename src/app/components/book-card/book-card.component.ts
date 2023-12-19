@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {BookSearchService} from "../../services/book-search.service";
 import {BookSearchModel} from "../../models/book-search.model";
 import {BookDetailsModel} from "../../models/book-details.model";
+import {SharedService} from "../../services/shared.service";
 declare var bootstrap: any;
 @Component({
   selector: 'app-book-card',
@@ -17,17 +18,27 @@ export class BookCardComponent implements OnInit{
   selectedBook: BookDetailsModel | null = null;
   addedBook: any = '';
 
-  constructor(private route: ActivatedRoute, private bookSearchService: BookSearchService) {
+  constructor(private route: ActivatedRoute, private bookSearchService: BookSearchService, private sharedService: SharedService) {
   }
   ngOnInit() {
-    switch (this.typeShow) {
-      case 'search':
-        this.loadSearchAll()
-        break;
-      case 'category':
-        this.viewCategory()
-        break;
-    }
+
+
+    this.sharedService.getSearchQuery().subscribe(searchQuery => {
+      if (searchQuery) {
+        this.bookSearchService.getBooksBasedOnSearch(searchQuery).subscribe(books => {
+          this.booksToDisplay = books;
+        });
+      } else {
+        switch (this.typeShow) {
+          case 'search':
+            this.loadSearchAll()
+            break;
+          case 'category':
+            this.viewCategory()
+            break;
+        }
+      }
+    });
   }
 
   loadSearchAll() {
@@ -39,10 +50,21 @@ export class BookCardComponent implements OnInit{
   viewCategory() {
     this.route.paramMap.subscribe(params => {
       const category = params.get('category');
-      if (category != null) {
-        // this.booksToDisplay = this.books.filter(book => book.categories.includes(category));
+      if (category !== null) {
+        this.bookSearchService.getCategories().subscribe(categories => {
+          const catId = categories.find(c => c.categoryName === category)?.categoryId;
+          if (catId !== undefined) {
+            this.bookSearchService.getBooksByCategory(catId).subscribe(books =>
+              this.booksToDisplay = books
+            );
+          } else {
+            console.error(`Category with name ${category} not found.`);
+            // Handle the case where the category is not found, e.g., redirect to a default category or show an error message.
+          }
+        });
       }
     });
+
   }
 
   openDetailsModal(bookId: number) {
