@@ -2,3 +2,50 @@
   <p>Your Cart is Empty</p>
 </div>
 
+<div *ngIf="!isCartEmpty() && !checkOutVal">
+  <div class="slide-cart">
+    <div *ngFor="let book of cartItems" class="cart-item">
+      <img [src]="'/assets/images/' + book.bookCover" alt="Book Cover">
+      <div class="book-details">
+        <h5>{{ book.title }}</h5>
+        <p>by {{ book.authorName }}</p>
+        <p>{{ book.price | currency }}</p>
+      </div>
+    </div>
+    <div class="total">
+      <p>Total Price: ${{ totalPrice }}</p>
+      <button type="button" class="btn btn-success" (click)="checkOut()">Check Out</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="checkOutVal && userInfo">
+  <div class="checkout">
+    <form (ngSubmit)="onCheckout(checkoutForm)" #checkoutForm="ngForm" class="checkout-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" disabled [(ngModel)]="userInfo.username" required>
+
+      <label for="firstName">Name:</label>
+      <input type="text" id="firstName" name="firstName" disabled [(ngModel)]="userInfo.firstName + ' ' + userInfo.lastName" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" disabled [(ngModel)]="userInfo.email" required>
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="userInfo.phoneNumber" required>
+
+      <label for="building">Building:</label>
+      <input type="text" id="building" name="building" [(ngModel)]="userInfo.building" required>
+
+      <label for="street">Street:</label>
+      <input type="text" id="street" name="street" [(ngModel)]="userInfo.street" required>
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" [(ngModel)]="userInfo.city" required>
+
+      <p>Total Price: ${{ totalPrice }}</p>
+      <button type="submit" class="btn btn-success" [disabled]="!checkoutForm.valid">Pay On Delivery</button>
+    </form>
+  </div>
+</div>
+

@@ -57,8 +57,7 @@ export class UserLoginComponent {
 
   userLogged() {
     this.loggedIn = this.authService.isUserLoggedIn();
-    this.user = this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.firstName;
-    console.log(this.user);
+    this.user = this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.lastName;
   }
 
   logout() {

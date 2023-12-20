@@ -9,3 +9,51 @@
   font-size: 1.2em;
   color: #4d4d4d;
 }
+
+/* slide-cart.component.css */
+
+.slide-cart {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 20px;
+}
+
+.cart-item {
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+img {
+  max-width: 80px;
+  margin-right: 10px;
+}
+
+.book-details {
+  flex: 1;
+}
+
+.total {
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* Add this to your global styles or component styles file */
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout {
+  margin: 10px;
+}
+.checkout label,
+.checkout input,
+.checkout p {
+  margin-bottom: 10px; /* Add spacing between elements */
+}
+
+

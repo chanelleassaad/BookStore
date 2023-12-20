@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';  // Import the map operator
 import { UserInfoModel } from '../models/user-info.model';
+import {CartService} from "./cart.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,10 @@ export class AuthService {
   private userDataSubject = new BehaviorSubject<UserInfoModel | null>(null);
   userData$ = this.userDataSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  loginStatusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+
+  constructor(private http: HttpClient, private cartService: CartService) {}
 
   login(username: string, password: string): Observable<UserInfoModel> {
     return this.http.post<UserInfoModel>(`${this.apiUrl}/user/login`, { username, password })
@@ -25,6 +29,7 @@ export class AuthService {
           // Update user data and login state upon successful login
           this.userDataSubject.next(response);
           this.isLoggedInSubject.next(true);
+          this.loginStatusChanged.emit(true);
           return response;
         })
       );
@@ -45,6 +50,7 @@ export class AuthService {
   logout(): void {
     this.userDataSubject.next(null);
     this.isLoggedInSubject.next(false);
+    this.loginStatusChanged.emit(false);
   }
 
   isUserLoggedIn(): boolean {

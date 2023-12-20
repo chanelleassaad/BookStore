@@ -4,6 +4,8 @@ import {BookSearchService} from "../../services/book-search.service";
 import {BookSearchModel} from "../../models/book-search.model";
 import {BookDetailsModel} from "../../models/book-details.model";
 import {SharedService} from "../../services/shared.service";
+import {AuthService} from "../../services/auth.service";
+import {CartService} from "../../services/cart.service";
 declare var bootstrap: any;
 @Component({
   selector: 'app-book-card',
@@ -18,11 +20,10 @@ export class BookCardComponent implements OnInit{
   selectedBook: BookDetailsModel | null = null;
   addedBook: any = '';
 
-  constructor(private route: ActivatedRoute, private bookSearchService: BookSearchService, private sharedService: SharedService) {
+  constructor(private route: ActivatedRoute, private bookSearchService: BookSearchService,
+              private sharedService: SharedService, private authService: AuthService, private cartService: CartService) {
   }
   ngOnInit() {
-
-
     this.sharedService.getSearchQuery().subscribe(searchQuery => {
       if (searchQuery) {
         this.bookSearchService.getBooksBasedOnSearch(searchQuery).subscribe(books => {
@@ -78,7 +79,15 @@ export class BookCardComponent implements OnInit{
   }
   addToCart(book: any) {
     this.addedBook = book.bookName;
-    const toast = new bootstrap.Toast(document.getElementById('liveToast'));
-    toast.show();
+    const body = {
+      bookCopyId : book.bookCopyId + '',
+      userId: this.authService.getUserData()?.userId + ''
+    }
+    this.cartService.addToCart(body).subscribe(x => {
+      console.log(x);
+      const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+      toast.show();
+    });
+
   }
 }
