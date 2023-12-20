@@ -40,7 +40,7 @@ export class CartService {
   }
 
   updateProfile(profileData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/user/profile/`, profileData);
+    return this.http.put<any>(`${this.apiUrl}/user/profile`, profileData);
   }
 
   buyBasket(basketId: string): Observable<any> {
