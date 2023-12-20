@@ -16,6 +16,7 @@ export class CartContentComponent implements OnInit {
   checkOutVal: boolean = false;
   // @ts-ignore
   userInfo: UserInfoModel | null;
+  done: boolean = false;
 
   constructor(private cartService: CartService, private authService: AuthService) {}
 
@@ -23,6 +24,10 @@ export class CartContentComponent implements OnInit {
     this.checkAndFillCart();
     this.authService.loginStatusChanged.subscribe(() => {
       // React to login status changes, e.g., user logs in or logs out
+      this.checkAndFillCart();
+    });
+    this.cartService.cartUpdated$.subscribe(() => {
+      // Call the method to get the updated cart items
       this.checkAndFillCart();
     });
   }
@@ -62,8 +67,12 @@ export class CartContentComponent implements OnInit {
     this.cartService.updateProfile(profileData).subscribe();
     this.cartService.buyBasket(this.basketId + '').subscribe(x => {
       console.log(x);
+      this.done = true;
     })
 
   }
 
+  removeFromCart(bookCopyId: any) {
+    this.cartService.removeFromCart(this.basketId + '', bookCopyId).subscribe();
+  }
 }

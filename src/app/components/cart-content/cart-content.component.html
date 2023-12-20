@@ -4,12 +4,14 @@
 
 <div *ngIf="!isCartEmpty() && !checkOutVal">
   <div class="slide-cart">
-    <div *ngFor="let book of cartItems" class="cart-item">
+    <div *ngFor="let book of cartItems; let i = index" class="cart-item">
       <img [src]="'/assets/images/' + book.bookCover" alt="Book Cover">
       <div class="book-details">
         <h5>{{ book.title }}</h5>
         <p>by {{ book.authorName }}</p>
-        <p>{{ book.price | currency }}</p>
+        <p>Quantity: {{ book.quantity }}</p>
+        <p>Price: {{ (book.quantity * book.price) | currency }}</p>
+        <button type="button" class="btn btn-danger" (click)="removeFromCart(book.bookCopyId)">Delete</button>
       </div>
     </div>
     <div class="total">
@@ -19,7 +21,7 @@
   </div>
 </div>
 
-<div *ngIf="checkOutVal && userInfo">
+<div *ngIf="checkOutVal && userInfo && !done">
   <div class="checkout">
     <form (ngSubmit)="onCheckout(checkoutForm)" #checkoutForm="ngForm" class="checkout-form">
       <label for="username">Username:</label>
@@ -49,3 +51,7 @@
   </div>
 </div>
 
+<div *ngIf="done" class="cart-empty">
+  Thank you for ordering!
+  Your order will arrive in 3 days
+</div>

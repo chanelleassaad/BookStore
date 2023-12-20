@@ -12,6 +12,8 @@ export class UserLoginComponent {
   registerForm: FormGroup;
   loggedIn: boolean = false;
   user: string = '';
+  loginError: boolean = false;
+
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
@@ -37,9 +39,15 @@ export class UserLoginComponent {
   }
 
   submitLoginForm() {
-    this.authService.login(this.loginForm.value['username'], this.loginForm.value['password']).subscribe( user => {
-      this.userLogged();
-    })
+    this.authService.login(this.loginForm.value['username'], this.loginForm.value['password']).subscribe(
+      user => {
+        this.userLogged();
+      },
+      error => {
+        console.error('Login error:', error);
+        this.loginError = true;
+      }
+    );
   }
 
   submitRegisterForm() {
@@ -56,6 +64,7 @@ export class UserLoginComponent {
   }
 
   userLogged() {
+    this.loginError = false;
     this.loggedIn = this.authService.isUserLoggedIn();
     this.user = this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.lastName;
   }

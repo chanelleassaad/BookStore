@@ -6,7 +6,7 @@ export interface CartModel {
 }
 
 export interface Book {
-  bookId:     number;
+  bookCopyId:     number;
   bookCover:  string;
   title:      string;
   authorName: string;

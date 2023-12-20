@@ -80,9 +80,18 @@
   </div>
 </div>
 
-<div *ngIf="loggedIn">
+<div *ngIf="loginError" class="alert alert-danger"  role="alert">
+  There was an error during login. Please try again.
+</div>
+
+<div *ngIf="loggedIn && !loginError">
   <div class="modal-body brown-theme">
-    <h1>Logged In As {{user}}</h1>
+    <div *ngIf="user">
+      <h2>Logged In As {{user}}</h2>
+    </div>
+    <div *ngIf="!user">
+      <h2>You are now logged in</h2>
+    </div>
     <button type="submit" class="btn btn-brown btn-block mb-3" style="color: white" (click)="logout()">Log Out</button>
   </div>
 </div>
